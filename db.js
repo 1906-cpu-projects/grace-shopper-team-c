@@ -68,6 +68,7 @@ const syncAndSeed = async ()=>{
     }
   ]
   const [billy, john, anna, may, james] = await Promise.all(users.map(user => User.create(user)))
+    .catch(err => console.log(err));
 
 // WE CAN CHANGE IT LATER
   const products = [
@@ -80,6 +81,7 @@ const syncAndSeed = async ()=>{
     {name: 'Wrench', price: 13.99}
   ]
   const [hammer, nails, paint, chairSet, shovel, lawnMower, wrench] = await Promise.all(products.map(product => Product.create(product)))
+    .catch(err => console.log(err));
 
   return {
     users: {

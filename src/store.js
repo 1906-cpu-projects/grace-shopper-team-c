@@ -75,45 +75,75 @@ const deleteCartItem = (idx)=> ({ type: DELETE_CART, idx});
 // Auth thunks
 const attemptLogin = (user) => {
   return async (dispatch) => {
-    const auth = (await axios.post('/api/login', { email: user.email, password: user.password })).data
-    dispatch(setAuth(auth))
-    //history.push('/')
+    try {
+      const auth = (await axios.post('/api/login', { email: user.email, password: user.password })).data
+      dispatch(setAuth(auth))
+      //history.push('/')
+    }
+    catch(ex){
+      console.log(ex); //throw(ex)?
+    }
   }
 }
 
 const attemptLogout = () => {
 return async (dispatch) => {
-    await axios.delete('/api/logout')
-    dispatch(logOutAuth())
+    try {
+      await axios.delete('/api/logout')
+      dispatch(logOutAuth())
+    }
+    catch(ex){
+      console.log(ex);
+    }
   }
 }
 
 const attemptSession = () => {
   return async (dispatch) => {
-    const auth = (await axios.get('/api/session')).data
-    dispatch(keepSession(auth))
+    try {
+      const auth = (await axios.get('/api/session')).data
+      dispatch(keepSession(auth))
+    }
+    catch(ex){
+      console.log(ex);
+    }
   }
 }
 
 //User thunks
 const getUsersThunk = ()=>{
   return async (dispatch)=>{
-    const response = (await axios.get('/api/users')).data;
-    dispatch(getUsers(response))
+    try {
+      const response = (await axios.get('/api/users')).data;
+      dispatch(getUsers(response))
+    }
+    catch(ex){
+      console.log(ex);
+    }
   }
 }
 const createUserThunk = (user) => {
   return async (dispatch)=> {
-    const response = (await axios.post('/api/users', user)).data;
-    dispatch(createUsers(response));
+    try {
+      const response = (await axios.post('/api/users', user)).data;
+      dispatch(createUsers(response));
+    }
+    catch(ex){
+      console.log(ex);
+    }
   }
 }
 
 //Product thunks
 const getProductsThunk = ()=>{
   return async (dispatch)=>{
-    const response = (await axios.get('/api/products')).data;
-    dispatch(getProducts(response));
+    try {
+      const response = (await axios.get('/api/products')).data;
+      dispatch(getProducts(response));
+    }
+    catch(ex){
+      console.log(ex);
+    }
   }
 }
 

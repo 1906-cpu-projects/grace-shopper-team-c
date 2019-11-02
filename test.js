@@ -13,7 +13,7 @@ const { expect } = require('chai');
 
 describe('Grace Shopper tests', ()=>{
   let seed;
-  beforeEach(async ()=> seed = await db.syncAndSeed());
+  beforeEach(async ()=> seed = await db.syncAndSeed().catch(err => console.log(err)));
   describe('Data Layer', ()=> {
     it('There is 7 products', ()=> {
       expect(seed.products.hammer.name).to.equal('Hammers');

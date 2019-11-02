@@ -1,3 +1,3 @@
 # grace-shopper-team-c
 
-Testing a pull request again...
+link to our deployed app https://grace-shopper-1906-group-c.herokuapp.com

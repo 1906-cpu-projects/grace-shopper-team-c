@@ -1,7 +1,6 @@
 import {  combineReducers, } from 'redux';
 
-import { SET_AUTH, GET_USERS, GET_PRODUCTS, GET_CART, ADD_CART, DELETE_CART, CREATE_USERS } from './action.js'
-
+import { SET_AUTH, GET_USERS, GET_PRODUCTS, GET_CART, ADD_CART, DELETE_CART, CREATE_USERS, UPDATE_USER } from './action.js'
 
 
 const authenticateReducer = (state={}, action) => {
@@ -12,13 +11,15 @@ const authenticateReducer = (state={}, action) => {
 }
 
 const userReducer = (state=[], action)=>{
-  if(action.type === GET_USERS){
-    return action.users
+  switch (action.type){
+    case GET_USERS :
+      return action.users;
+    case CREATE_USERS :
+      return [...state, action.user];
+    case UPDATE_USER :
+      return state.map( user => user.id === action.user.id ? action.user : user );
+    default: return state;
   }
-  if(action.type === CREATE_USERS){
-    return [...state, action.user]
-  }
-  return state
 }
 
 const productReducer = (state=[], action)=>{

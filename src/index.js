@@ -7,7 +7,9 @@ const root = document.querySelector('#root')
 import Nav from './Nav';
 import store, {getUsersThunk, getProductsThunk} from './redux/store';
 import Users from './Users';
-import User from './SignUp';
+import SignUp from './SignUp';
+import UserProfile from './UserProfile';
+import UpdateUserForm from './UpdateUserForm';
 import Products from './Products';
 import Home from './Home';
 import Cart from './Cart';
@@ -28,7 +30,9 @@ class _App extends Component{
         <Route component={Nav} />
         <Route path='/' component={Home} exact />
         <Route path='/users' component={Users} />
-        <Route path='/user' component={User} />
+        <Route path='/signup' component={SignUp} />
+        <Route path='/profile' component={UserProfile} />
+        <Route path='/settings/profile' component={UpdateUserForm} />
         <Route path='/products' component={Products} />
         <Route path='/cart' component={Cart} />
       </HashRouter>

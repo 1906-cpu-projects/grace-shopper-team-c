@@ -7,7 +7,7 @@ class _Search extends React.Component {
     super();
     this.state = {
       searchProducts: [],
-      input: ""
+      input: ''
     };
   }
   startSearch(e) {
@@ -21,17 +21,18 @@ class _Search extends React.Component {
     return (
       <div>
         <input
-          type="text"
-          className="search"
-          name="input"
+          type='text'
+          className='search'
+          name='input'
+          placeholder='Search products'
           onKeyUp={e => this.startSearch(e)}
         />
-        <div className="ordering">
+        <div className='ordering'>
           {searchProducts.length === 0 && !input ? (
             <Products />
           ) : (
             searchProducts.map(product => (
-              <div key={product.id} className="border">
+              <div key={product.id} className='border'>
                 {product.name}
                 <br />${product.price}
                 <br />

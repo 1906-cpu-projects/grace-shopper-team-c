@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { setAuth, logOutAuth, keepSession, getUsers, createUsers, getProducts } from './action.js'
+import { setAuth, logOutAuth, keepSession, getUsers, createUsers, getProducts, updateUser } from './action.js'
 
 
 
@@ -41,6 +41,17 @@ const createUserThunk = (user) => {
     dispatch(createUsers(response));
   }
 }
+const updateUserThunk = (user)=> {
+  return async (dispatch)=> {
+    try {
+      const updatedUser = (await axios.put(`/api/users/${user.id}`, user)).data;
+      dispatch(updateUser(updatedUser));
+    }
+    catch(ex) {
+      console.log(ex);
+    }
+  }
+}
 
 //Product thunks
 const getProductsThunk = ()=>{
@@ -50,4 +61,4 @@ const getProductsThunk = ()=>{
   }
 }
 
-export {getProductsThunk, getUsersThunk, createUserThunk, attemptLogin, attemptSession, attemptLogout}
+export {getProductsThunk, getUsersThunk, createUserThunk, updateUserThunk, attemptLogin, attemptSession, attemptLogout}

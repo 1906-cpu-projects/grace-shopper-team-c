@@ -32,10 +32,10 @@ class _LoginForm extends Component {
         <h3>Login</h3>
         <form onSubmit={ login }>
           <div>
-            <input placeholder="email" value={ email } type="text" name="email" onChange={ onChange } />
+            <input placeholder='email' value={ email } type='email' name='email' onChange={ onChange } />
           </div>
           <div>
-            <input placeholder="password" value={ password } type="password" name="password" onChange={ onChange } />
+            <input placeholder='password' value={ password } type='password' name='password' onChange={ onChange } />
           </div>
           <div>
             <button>Login</button>

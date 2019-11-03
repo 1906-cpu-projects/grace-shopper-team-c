@@ -69,7 +69,6 @@ const syncAndSeed = async ()=>{
   ]
   const [billy, john, anna, may, james] = await Promise.all(users.map(user => User.create(user)))
 
-// WE CAN CHANGE IT LATER
   const products = [
     {name: 'Hammer', price: 25.99},
     {name: 'Nails', price: 9.50},

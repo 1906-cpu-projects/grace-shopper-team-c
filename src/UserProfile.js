@@ -17,7 +17,6 @@ class _UserProfile extends Component {
     }
 
     const user = users.find(user=> user.id === auth.id);
-    console.log('user in UserProfile', user);
 
     //if guest tries to access /profile, redirect to home page
     if(!auth.id){

@@ -48,7 +48,7 @@ Product.belongsTo(User)
 User.hasMany(Product);
 
 const syncAndSeed = async ()=>{
-  await conn.sync({force: true});
+  await conn.sync({force: false});
 
   const users = [
     {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { attemptLogin } from './redux/store';
+import { attemptLogin } from '../redux/store';
 
 class _LoginForm extends Component {
   constructor() {
@@ -24,7 +24,7 @@ class _LoginForm extends Component {
     const credentials = {...this.state};
     delete credentials.error;
     this.props.attemptLogin(credentials)
-      .catch(ex => this.setState({error: 'Connot find user with specified credentials'}))
+      .catch(ex => this.setState({error: 'bad credentials'}))
   }
 
   render() {
@@ -34,15 +34,15 @@ class _LoginForm extends Component {
     return (
       <div>
         <h3>Login</h3>
-        {
-            error && <div className='error'>{ error }</div>
-          }
         <form onSubmit={ login }>
+        {
+          !!error && <div className='error' >{error}</div>
+        }
           <div>
-            <input placeholder="email" value={ email } type="text" name="email" onChange={ onChange } />
+          <input placeholder='email' value={ email } type='email' name='email' onChange={ onChange } />
           </div>
           <div>
-            <input placeholder="password" value={ password } type="password" name="password" onChange={ onChange } />
+          <input placeholder='password' value={ password } type='password' name='password' onChange={ onChange } />
           </div>
           <div>
             <button>Login</button>

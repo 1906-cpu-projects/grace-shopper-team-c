@@ -10,7 +10,8 @@
     "webpack": "webpack",
     "webpack:dev": "webpack --watch --mode=development",
     "start:dev": "npm run webpack:dev & SECRET=FOO nodemon ./server/index.js --ignore dist/ --ignore src/",
-    "start": "node ./server/index.js"
+    "start": "node ./server/index.js",
+    "seed": "node scripts/seed.js"
   },
   "babel": {
     "presets": [

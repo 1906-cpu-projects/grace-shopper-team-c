@@ -5,6 +5,12 @@ const { User, Product, Order, LineItem } = db.models;
 
 router.use(express.json());
 
+router.use(require('express-session')({
+  secret: process.env.SECRET,
+  saveUninitialized: true,
+  resave: false,
+}));
+
 //GET Route
 router.get('/api/users', (req, res, next) => {
   User.findAll({

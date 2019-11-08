@@ -27,9 +27,13 @@ const _Order = ({ users, auth, match, products, orders })=> {
           currentOrder.lineItems.map((lineItem, idx) =>
             <li key={idx}>
               <div><b>Item: {products.find(product => product.id === lineItem.productId).name}</b></div>
+              <img src={products.find(product => product.id === lineItem.productId).imageURL}
+              style={{width: 200, height: 200 }}
+              />
               <div>Price: ${products.find(product => product.id === lineItem.productId).price}</div>
               <div>Quantity: {lineItem.quantity}</div>
               <div>Subtotal: ${products.find(product => product.id === lineItem.productId).price * lineItem.quantity}</div>
+              <br/>
             </li>
           )
         }

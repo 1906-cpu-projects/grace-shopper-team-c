@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { attemptLogout } from '../redux/store';
 import { deleteUserThunk } from '../redux/thunk';
@@ -25,11 +25,13 @@ const _DeleteUser = ({auth, users, logout, destroy})=> {
       <h1>Delete Account, {auth.name}</h1>
       <h3>Are you sure you want to deactivate your account?</h3>
       <div>Note: this will delete all account information, including order history.</div>
-      <br></br>
+      <br/>
       <button onClick={ ()=> {
         logout();
         destroy(user);
       }}>Deactivate Account</button>
+      <br/><br/>
+      <Link to='/profile'>return to profile</Link>
     </div>
   );
 }

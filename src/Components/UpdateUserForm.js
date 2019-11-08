@@ -1,32 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateUserThunk } from '../redux/thunk';
+import { updateUserThunk, attemptSession } from '../redux/thunk';
+import { Redirect, Link } from 'react-router-dom';
 
 
 class _UpdateUserForm extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
-      name: '',
-      email: '',
-      password: '',
+      name: props.auth.name,
+      email: props.auth.email,
+      password: props.auth.password, //need to change once hashing is done
       error: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.update = this.update.bind(this);
   }
-  componentDidMount(){
-    const { currentUser } = this.props;
-    if(!currentUser.name){
-      return null;
-    }
-    this.setState({
-      name: currentUser.name,
-      email: currentUser.email,
-      password: currentUser.password,
-      error: ''
-    })
-  }
+
   update(){
     const { auth } = this.props;
     try {
@@ -43,44 +33,52 @@ class _UpdateUserForm extends Component {
       );
   }
   render(){
-    const { auth, users } = this.props;
+    const { auth, attemptSession } = this.props;
     const { handleChange, update } = this;
-    const { error } = this.state;
+    const { name, email, error } = this.state;
 
-    if (!auth.id || users.length === 0) {
+    //guest or loading
+    if (!auth.id) {
       return (
-        <h1>loading...</h1>
+        <Redirect to='/profile' />
       );
     }
 
     return (
-      <div>
-        <h2>Edit profile</h2>
-        <form className='userForm' onSubmit={ ev => ev.preventDefault()}>
-          User Name: <input type='text' name='name' placeholder={ auth.name } onChange={ handleChange }></input>
-          Email: <input type='email' name='email' placeholder={ auth.email } onChange={ handleChange }></input>
-          Password: <input type='password' name='password' placeholder='change password' onChange={ handleChange }></input>
+      <div className='editProfileContainer'>
+        <h1>Edit profile</h1>
+        <h3>Name: { auth.name }</h3>
+        <h3>Email: { auth.email }</h3>
+        <Link to='/profile'>return to profile</Link>
+
+        <form className='userForm' onSubmit={ attemptSession }>
+          <div>
+            User Name: <input type='text' name='name' value={ name } onChange={ handleChange }></input>
+          </div>
+          <br/>
+          <div>
+            Email: <input type='email' name='email' value={ email } onChange={ handleChange }></input>
+          </div>
+          <br/>
+          <div>
+            New Password: <input type='password' name='password' placeholder='change password' onChange={ handleChange }></input>
+          </div>
+          <br/>
           { !!error && <div className='error'>{ error }</div> }
-          <button onClick={ update }>Update</button>
+          <button disabled={!this.state.name || !this.state.email || !this.state.password } onClick={ update }>Update</button>
         </form>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ users, auth })=> {
-  const currentUser = users.find( user => user.id === auth.id);
-  return {
-    auth,
-    users,
-    currentUser
-  }
-}
+const mapStateToProps = ({ auth })=> ({ auth });
 
 const mapDispatchToProps = (dispatch)=> {
   return {
-    update: (user)=> dispatch(updateUserThunk(user))
-  }
+    update: (user)=> dispatch(updateUserThunk(user)),
+    attemptSession: () => attemptSession()
+  };
 }
 
 const UpdateUserForm = connect(mapStateToProps, mapDispatchToProps)(_UpdateUserForm);

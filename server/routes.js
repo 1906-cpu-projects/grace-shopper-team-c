@@ -75,8 +75,8 @@ router.post('/api/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
-router.get('/api/session', (req, res, next) => {
-  const user = req.session.user;
+router.get('/api/session', async(req, res, next) => {
+  const user = await User.findByPk(req.session.user.id);
   if (user) {
     return res.send(user);
   }

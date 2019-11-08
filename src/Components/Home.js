@@ -4,14 +4,23 @@ import { connect } from 'react-redux';
 import Search from './Search';
 import LoginForm from './LoginForm';
 import Login from './Login';
+import { Link } from 'react-router-dom';
 
 const _Home = ({ auth }) => {
   return (
     <div>
       <h1>Home Page</h1>
       {
-        !auth.id ? <LoginForm /> : <Login />
+        !auth.id ?
+        (
+          <div>
+            <LoginForm />
+            <div>Don't have an account? <Link to='/signup'>Sign up</Link></div>
+          </div>
+        )
+        : <Login />
       }
+      <br/>
       <Search />
     </div>
   );

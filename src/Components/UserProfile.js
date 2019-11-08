@@ -24,7 +24,7 @@ class _UserProfile extends Component {
 
     //find current user
     const user = users.find( user => user.id === auth.id);
-
+    console.log('user in UserProfile', user);
     return (
       <div className='userProfileContainer'>
         <h1>Account Information</h1>
@@ -37,12 +37,18 @@ class _UserProfile extends Component {
               <div>No Orders</div> :
             user.orders.map( order =>
               <li key={order.id}>
-                Order: <Link to={`/orders/${order.id}`}> #{order.id}</Link>
-                <span> Total: ${ order.lineItems.map(
+                <b>Order:</b> <Link to={`/orders/${order.id}`}> #{order.id}</Link>
+                <span> <b>Total:</b> ${ order.lineItems.map(
                   lineItem =>
                     products.find(product => product.id === lineItem.productId).price * lineItem.quantity)
-                      .reduce((acc, curr)=> acc + curr, 0)}
+                      .reduce((acc, curr)=> acc + curr, 0)
+                      .toFixed(2)}
                 </span>
+                {
+                  !order.complete ?
+                    <span> <b>Status:</b> In Progess</span> :
+                    <span> <b>Status:</b> Complete</span>
+                }
               </li>
             )
           }

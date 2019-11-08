@@ -22,6 +22,14 @@ const _Order = ({ users, auth, match, products, orders })=> {
     <div className='orderContainer'>
       <h1>Order for {user.name}</h1>
       <h2>Order #{orderId}</h2>
+      {
+        !currentOrder.complete ?
+        <div>
+          <h3>Status: In Progress</h3>
+          <div>Go back to <Link to='/cart'>cart</Link></div>
+        </div> :
+        <h3>Status: Complete</h3>
+      }
       <ul>
         {
           currentOrder.lineItems.map((lineItem, idx) =>

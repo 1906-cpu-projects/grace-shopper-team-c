@@ -24,7 +24,7 @@ class _UserProfile extends Component {
 
     //find current user
     const user = users.find( user => user.id === auth.id);
-
+    console.log('user in UserProfile', user);
     return (
       <div className='userProfileContainer'>
         <h1>Account Information</h1>
@@ -43,6 +43,11 @@ class _UserProfile extends Component {
                     products.find(product => product.id === lineItem.productId).price * lineItem.quantity)
                       .reduce((acc, curr)=> acc + curr, 0)}
                 </span>
+                {
+                  !order.complete ?
+                    <span> Status: incomplete</span> :
+                    <span> Status: complete</span>
+                }
               </li>
             )
           }

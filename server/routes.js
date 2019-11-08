@@ -75,12 +75,21 @@ router.post('/api/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
-router.get('/api/session', async(req, res, next) => {
-  const user = await User.findByPk(req.session.user.id);
-  if (user) {
-    return res.send(user);
+router.get('/api/session', (req, res, next) => {
+  if(!req.session.user) {
+    const guest = {
+      id: Math.random(),
+      name: 'Guest',
+      cart: []
+    };
+    req.session.user = guest;
+    console.log(req.session);
+    return res.send(req.session.user);
   }
-  next({ status: 401 });
+  //const user = await User.findByPk(req.session.user.id);
+  User.findByPk(req.session.user.id)
+    .then(user => res.send(user))
+    .catch(next);
 });
 
 router.delete('/api/logout', (req, res, next) => {

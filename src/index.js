@@ -24,12 +24,12 @@ import { attemptSession } from './redux/store';
 
 class _App extends Component {
   componentDidMount() {
-    this.props.attemptSession().catch(ex => console.log(ex));
-    this.props.getUsers();
-    this.props.getProducts();
-    this.props.getCart();
-    this.props.getOrders();
-
+    const { attemptSession, getUsers, getProducts, getCart, getOrders } = this.props;
+    attemptSession().catch(() => { throw new Error('not logged in') });
+    getUsers();
+    getProducts();
+    getCart();
+    getOrders();
   }
   render() {
     const { loggedIn } = this.props;

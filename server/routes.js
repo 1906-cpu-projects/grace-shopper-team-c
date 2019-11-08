@@ -76,6 +76,7 @@ router.post('/api/login', (req, res, next) => {
 });
 
 router.get('/api/session', (req, res, next) => {
+  // if no user logged in, create a guest session
   if(!req.session.user) {
     const guest = {
       id: Math.random(),
@@ -86,7 +87,13 @@ router.get('/api/session', (req, res, next) => {
     console.log(req.session);
     return res.send(req.session.user);
   }
-  //const user = await User.findByPk(req.session.user.id);
+
+  // on refresh if its still the guest user keep the session
+  if(req.session.user.name === 'Guest') {
+    return res.send(req.session.user);
+  }
+
+  // if actually logged in persist user session
   User.findByPk(req.session.user.id)
     .then(user => res.send(user))
     .catch(next);

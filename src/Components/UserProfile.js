@@ -5,10 +5,10 @@ import { attemptLogout } from '../redux/store';
 
 class _UserProfile extends Component {
   render(){
-    const { auth, logout, users } = this.props;
+    const { auth, logout, users, products } = this.props;
 
     //if guest tries to access /profile, link to home page
-    if(!auth.id || users.length === 0){
+    if(!auth.id){
       return (
         <div>
           <h3>Hello guest,</h3>
@@ -17,11 +17,13 @@ class _UserProfile extends Component {
       );
     }
 
-    const user = users.find( user => user.id === auth.id);
-
-    if(!user.id){
+    //loading
+    if(users.length === 0 || products.length === 0){
       return <h1>loading...</h1>
     }
+
+    //find current user
+    const user = users.find( user => user.id === auth.id);
 
     return (
       <div className='userProfileContainer'>
@@ -35,22 +37,27 @@ class _UserProfile extends Component {
               <div>No Orders</div> :
             user.orders.map( order =>
               <li key={order.id}>
-                <Link to={`/orders/${order.id}`}>Order #{order.id}</Link>
+                Order: <Link to={`/orders/${order.id}`}> #{order.id}</Link>
+                <span> Total: ${ order.lineItems.map(
+                  lineItem =>
+                    products.find(product => product.id === lineItem.productId).price * lineItem.quantity)
+                      .reduce((acc, curr)=> acc + curr, 0)}
+                </span>
               </li>
             )
           }
         </ul>
         <div><Link to='/settings/profile'>Edit profile</Link></div>
-        <br></br>
+        <br/>
         <Link to='/'><button onClick={logout}>Logout</button></Link>
-        <br></br><br></br>
+        <br/><br/>
         <div><Link to='/settings/deactivate'>Deactivate Account</Link></div>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ auth, users })=> ({ auth, users });
+const mapStateToProps = ({ auth, users, products })=> ({ auth, users, products });
 
 const mapDispatchToProps = (dispatch)=> {
   return {

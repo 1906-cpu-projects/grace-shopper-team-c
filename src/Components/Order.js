@@ -48,7 +48,8 @@ const _Order = ({ users, auth, match, products, orders })=> {
       </ul>
       <h3>Order Total ${ currentOrder.lineItems.map(lineItem =>
           products.find(product => product.id === lineItem.productId).price * lineItem.quantity)
-            .reduce((acc, curr)=> acc + curr, 0)}
+            .reduce((acc, curr)=> acc + curr, 0)
+            .toFixed(2)}
       </h3>
       <Link to='/profile'>return to profile</Link>
     </div>

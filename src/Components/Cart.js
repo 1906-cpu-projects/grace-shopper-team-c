@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deleteCartItem } from '../redux/store';
+import { deleteCartItemThunk } from '../redux/store';
 
 class Cart extends Component {
   render() {
@@ -14,7 +14,6 @@ class Cart extends Component {
       ...item,
       product: products.find(product => product.id === item.productId)
     }));
-    console.log(ownCart);
     const cartTotal = ownCart
       .map(item => item.product.price * 1)
       .reduce((acc, curr) => acc + curr, 0)
@@ -32,10 +31,10 @@ class Cart extends Component {
       <div>
         <h2>Your Cart</h2>
         <ul>
-          {ownCart.map((item, idx) => (
-            <li key={idx}>
+          {ownCart.map(item => (
+            <li key={item.id}>
               {item.product.name} ${item.product.price}
-              <button onClick={() => destroy(idx)}>Remove Item</button>
+              <button onClick={() => destroy(item)}>Remove Item</button>
             </li>
           ))}
         </ul>
@@ -62,8 +61,8 @@ const mapStateToProps = ({ cart, products, orders, auth }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    destroy: idx => {
-      return dispatch(deleteCartItem(idx));
+    destroy: item => {
+      return dispatch(deleteCartItemThunk(item));
     }
   };
 };

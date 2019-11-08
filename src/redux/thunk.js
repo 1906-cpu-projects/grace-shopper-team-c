@@ -134,8 +134,8 @@ const addCartItemThunk = item => {
 
 const deleteCartItemThunk = item => {
   return async dispatch => {
-    const response = (await axios.delete(`/api/lineItems/${item.id}`)).data;
-    dispatch(deleteCartItem(response));
+    await axios.delete(`/api/lineItems/${item.id}`);
+    dispatch(deleteCartItem(item));
   };
 };
 

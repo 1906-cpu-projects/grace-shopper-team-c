@@ -33,7 +33,7 @@ const getCart = items => ({ type: GET_CART, items });
 const addCartItem = item => {
   return { type: ADD_CART, item };
 };
-const deleteCartItem = idx => ({ type: DELETE_CART, idx });
+const deleteCartItem = item => ({ type: DELETE_CART, item });
 
 //orders
 const getOrders = orders => ({ type: GET_ORDERS, orders });

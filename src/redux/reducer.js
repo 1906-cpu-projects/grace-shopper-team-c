@@ -56,7 +56,7 @@ const cartReducer = (state = [], action) => {
     case ADD_CART:
       return [...state, action.item];
     case DELETE_CART:
-      return state.filter((item, idx) => idx !== action.idx);
+      return state.filter(item => item.id !== action.item.id);
     default:
       return state;
   }
@@ -87,4 +87,4 @@ const reducer = combineReducers({
   orders: orderReducer
 });
 
-export { reducer, /*composeEnhancers*/ };
+export { reducer /*composeEnhancers*/ };

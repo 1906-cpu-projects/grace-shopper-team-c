@@ -28,8 +28,8 @@ class _UserProfile extends Component {
     return (
       <div className='userProfileContainer'>
         <h1>Account Information</h1>
-        <h3>Name: {auth.name} </h3>
-        <h3>Email: {auth.email} </h3>
+        <h3>Name: {user.name} </h3>
+        <h3>Email: {user.email} </h3>
         <h3>Order History</h3>
         <ul>
           {

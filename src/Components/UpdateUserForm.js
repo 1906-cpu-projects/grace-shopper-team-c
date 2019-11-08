@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateUserThunk } from '../redux/thunk';
+import { updateUserThunk, attemptSession } from '../redux/thunk';
 import { Redirect, Link } from 'react-router-dom';
 
 
@@ -33,7 +33,7 @@ class _UpdateUserForm extends Component {
       );
   }
   render(){
-    const { auth } = this.props;
+    const { auth, attemptSession } = this.props;
     const { handleChange, update } = this;
     const { name, email, error } = this.state;
 
@@ -51,7 +51,7 @@ class _UpdateUserForm extends Component {
         <h3>Email: { auth.email }</h3>
         <Link to='/profile'>return to profile</Link>
 
-        <form className='userForm' onSubmit={ ev => ev.preventDefault()}>
+        <form className='userForm' onSubmit={ attemptSession }>
           <div>
             User Name: <input type='text' name='name' value={ name } onChange={ handleChange }></input>
           </div>
@@ -76,7 +76,8 @@ const mapStateToProps = ({ auth })=> ({ auth });
 
 const mapDispatchToProps = (dispatch)=> {
   return {
-    update: (user)=> dispatch(updateUserThunk(user))
+    update: (user)=> dispatch(updateUserThunk(user)),
+    attemptSession: () => attemptSession()
   };
 }
 

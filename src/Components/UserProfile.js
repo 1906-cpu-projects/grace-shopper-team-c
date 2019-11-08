@@ -37,16 +37,16 @@ class _UserProfile extends Component {
               <div>No Orders</div> :
             user.orders.map( order =>
               <li key={order.id}>
-                Order: <Link to={`/orders/${order.id}`}> #{order.id}</Link>
-                <span> Total: ${ order.lineItems.map(
+                <b>Order:</b> <Link to={`/orders/${order.id}`}> #{order.id}</Link>
+                <span> <b>Total:</b> ${ order.lineItems.map(
                   lineItem =>
                     products.find(product => product.id === lineItem.productId).price * lineItem.quantity)
                       .reduce((acc, curr)=> acc + curr, 0)}
                 </span>
                 {
                   !order.complete ?
-                    <span> Status: incomplete</span> :
-                    <span> Status: complete</span>
+                    <span> <b>Status:</b> In Progess</span> :
+                    <span> <b>Status:</b> Complete</span>
                 }
               </li>
             )

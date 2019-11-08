@@ -5,34 +5,45 @@ import { addCartItemThunk, createOrderThunk } from '../redux/store';
 
 class _Products extends Component {
   create(e, product) {
+    const { auth, cart, orders, createOrder, toCreate } = this.props;
     e.preventDefault();
-    console.log(this.props.cart, this.props.orders);
-    if (this.props.auth) {
-      const checkOrder = this.props.orders.filter(
+
+    //console.log(this.props.cart, this.props.orders);
+
+    // Gets cart for specific user
+    if (auth.name !== 'Guest') {
+      const checkOrder = orders.filter(
         order => order.userId === this.props.auth.id
       );
       if (!checkOrder.length) {
-        this.props.createOrder({ userId: this.props.auth.id });
-        const order = this.props.orders.filter(
-          order => order.userId === this.props.auth.id
+        createOrder({ userId: auth.id });
+        const order = orders.filter(
+          order => order.userId === auth.id
         );
         if (order.length) {
-          this.props.toCreate({
+          toCreate({
             productId: product.id,
             orderId: order[0].id
           });
         }
       } else {
-        this.props.toCreate({
+        toCreate({
           productId: product.id,
-          orderId: this.props.orders.filter(
-            order => order.userId === this.props.auth.id
+          orderId: orders.filter(
+            order => order.userId === auth.id
           )[0].id
         });
       }
+    } else {
+      // Adds to guest cart
+      auth.cart = [...auth.cart, product];
+      //console.log(auth);
     }
+
+
   }
   render() {
+    //console.log(this.props.auth);
     return (
       <div>
         <div className='ordering'>

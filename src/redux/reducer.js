@@ -6,7 +6,7 @@ import {
   GET_PRODUCTS,
   GET_CART,
   ADD_CART,
-  DELETE_CART,
+  DELETE_CART_ITEM,
   CREATE_USERS,
   UPDATE_USER,
   DELETE_USER,
@@ -55,7 +55,7 @@ const cartReducer = (state = [], action) => {
       return action.items;
     case ADD_CART:
       return [...state, action.item];
-    case DELETE_CART:
+    case DELETE_CART_ITEM:
       return state.filter(item => item.id !== action.item.id);
     default:
       return state;

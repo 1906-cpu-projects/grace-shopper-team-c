@@ -32,7 +32,6 @@ class _App extends Component {
     getOrders();
   }
   render() {
-    const { loggedIn } = this.props;
     return (
       <HashRouter>
         <Route component={Nav} />
@@ -52,7 +51,7 @@ class _App extends Component {
 const App = connect(
   ({ auth }) => {
     return {
-      loggedIn: !!auth.id
+      auth
     };
   },
   dispatch => {

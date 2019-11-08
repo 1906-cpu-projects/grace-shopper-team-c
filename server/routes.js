@@ -84,7 +84,6 @@ router.get('/api/session', (req, res, next) => {
       cart: []
     };
     req.session.user = guest;
-    console.log(req.session);
     return res.send(req.session.user);
   }
 

@@ -5,7 +5,10 @@ const DELETE_USER = 'DELETE_USER';
 const GET_PRODUCTS = 'GET_PRODUCTS';
 const GET_CART = 'GET_CART';
 const ADD_CART = 'ADD_CART';
-const DELETE_CART = 'DELETE_CART';
+const DELETE_CART_ITEM = 'DELETE_CART_ITEM';
+const GET_GUEST_CART = 'GET_GUEST_CART';
+const ADD_GUEST_ITEM = 'ADD_GUEST_ITEM';
+const DEL_GUEST_ITEM = 'DEL_GUEST_ITEM';
 const SET_AUTH = 'SET_AUTH';
 const GET_ORDERS = 'GET_ORDERS';
 const CREATE_ORDER = 'CREATE_ORDER';
@@ -28,12 +31,17 @@ const deleteUser = user => ({ type: DELETE_USER, user });
 //products
 const getProducts = products => ({ type: GET_PRODUCTS, products });
 
+// guest cart
+const getGuestCart = (items) => ({ type: GET_GUEST_CART, items });
+const addGuestItem = (item) => ({ type: ADD_GUEST_ITEM, item });
+const deleteGuestItem = (item) => ({ type: DEL_GUEST_ITEM, item });
+
 //cart
 const getCart = items => ({ type: GET_CART, items });
 const addCartItem = item => {
   return { type: ADD_CART, item };
 };
-const deleteCartItem = item => ({ type: DELETE_CART, item });
+const deleteCartItem = item => ({ type: DELETE_CART_ITEM, item });
 
 //orders
 const getOrders = orders => ({ type: GET_ORDERS, orders });
@@ -42,6 +50,9 @@ const updateOrder = order => ({ type: UPDATE_ORDER, order });
 const deleteOrder = order => ({ type: DELETE_ORDER, order });
 
 export {
+  getGuestCart,
+  addGuestItem,
+  deleteGuestItem,
   getCart,
   addCartItem,
   deleteCartItem,
@@ -62,7 +73,10 @@ export {
   GET_PRODUCTS,
   GET_CART,
   ADD_CART,
-  DELETE_CART,
+  DELETE_CART_ITEM,
+  GET_GUEST_CART,
+  ADD_GUEST_ITEM,
+  DEL_GUEST_ITEM,
   CREATE_USERS,
   UPDATE_USER,
   DELETE_USER,

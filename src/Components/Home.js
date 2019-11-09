@@ -11,7 +11,7 @@ const _Home = ({ auth }) => {
     <div>
       <h1>Home Page</h1>
       {
-        !auth.id ?
+        auth.name === 'Guest' ?
         (
           <div>
             <LoginForm />

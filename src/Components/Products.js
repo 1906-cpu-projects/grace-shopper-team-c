@@ -1,38 +1,53 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addCartItemThunk, createOrderThunk } from '../redux/store';
+import { addCartItemThunk, createOrderThunk, addGuestItem } from '../redux/store';
 
 class _Products extends Component {
   create(e, product) {
+    const { auth, cart, orders, createOrder, addToCart, addGuestItem } = this.props;
     e.preventDefault();
-    console.log(this.props.cart, this.props.orders);
-    if (this.props.auth) {
-      const checkOrder = this.props.orders.filter(
-        order => order.userId === this.props.auth.id
+
+    //console.log(this.props.cart, this.props.orders);
+
+    // Gets cart for specific user
+    if (auth.name !== 'Guest') {
+      //check if user has any orders
+      const checkOrder = orders.filter(
+        order => order.userId === auth.id
       );
+      console.log('checkOrder: ', checkOrder);
+      // if no orders create an order
       if (!checkOrder.length) {
-        this.props.createOrder({ userId: this.props.auth.id });
-        const order = this.props.orders.filter(
-          order => order.userId === this.props.auth.id
+        createOrder({ userId: auth.id });
+        const order = orders.filter(
+          order => order.userId === auth.id
         );
+        console.log('order', order);
+
+        // if there is an order add to it
         if (order.length) {
-          this.props.toCreate({
+          addToCart({
             productId: product.id,
             orderId: order[0].id
           });
         }
       } else {
-        this.props.toCreate({
+        addToCart({
           productId: product.id,
-          orderId: this.props.orders.filter(
-            order => order.userId === this.props.auth.id
+          orderId: orders.filter(
+            order => order.userId === auth.id
           )[0].id
         });
       }
+    } else {
+      addGuestItem(product);
     }
   }
   render() {
+    //console.log('auth:', this.props.auth);
+    //console.log('order: ', this.props.orders);
+    //console.log('cart: ', this.props.guestCart);
     return (
       <div>
         <div className='ordering'>
@@ -55,18 +70,20 @@ class _Products extends Component {
   }
 }
 const Products = connect(
-  ({ products, auth, cart, orders }) => {
+  ({ products, auth, cart, orders, guestCart }) => {
     return {
       products,
       auth,
       cart,
-      orders
+      orders,
+      guestCart
     };
   },
   dispatch => {
     return {
-      toCreate: item => dispatch(addCartItemThunk(item)),
-      createOrder: order => dispatch(createOrderThunk(order))
+      addToCart: item => dispatch(addCartItemThunk(item)),
+      createOrder: order => dispatch(createOrderThunk(order)),
+      addGuestItem: item => dispatch(addGuestItem(item))
     };
   }
 )(_Products);

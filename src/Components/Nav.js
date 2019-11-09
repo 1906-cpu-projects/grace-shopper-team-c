@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const _Nav = ({ users, products, cart, auth, orders }) => {
+const _Nav = ({ users, products, cart, guestCart, auth, orders }) => {
   const order = orders.filter(order => order.userId === auth.id);
   const userCart =
     order.length !== 0 ? cart.filter(item => item.orderId === order[0].id) : [];
@@ -11,7 +11,7 @@ const _Nav = ({ users, products, cart, auth, orders }) => {
       <NavLink to='/'>Home</NavLink>
       <NavLink to='/users'>Users ({users.length})</NavLink>
       <NavLink to='/products'>Products ({products.length})</NavLink>
-      <NavLink to='/cart'>Cart ({userCart.length})</NavLink>
+      <NavLink to='/cart'>Cart ({auth.name !== 'Guest' ? userCart.length : guestCart.length})</NavLink>
       {!auth.id ? (
         <NavLink to='/signup'>Sign Up</NavLink>
       ) : (
@@ -20,6 +20,15 @@ const _Nav = ({ users, products, cart, auth, orders }) => {
     </nav>
   );
 };
-const Nav = connect(state => state)(_Nav);
+const Nav = connect(({ users, products, cart, auth, orders, guestCart }) => {
+  return {
+    users,
+    products,
+    cart,
+    guestCart,
+    auth,
+    orders
+  };
+})(_Nav);
 
 export default Nav;

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User, Product, Order, LineItem } = require('./db');
+const uuid = require('uuid');
 
 router.use(express.json());
 
@@ -75,12 +76,26 @@ router.post('/api/login', (req, res, next) => {
     .catch(err => next(err));
 });
 
-router.get('/api/session', async(req, res, next) => {
-  const user = await User.findByPk(req.session.user.id);
-  if (user) {
-    return res.send(user);
+router.get('/api/session', (req, res, next) => {
+  // if no user logged in, create a guest session
+  if(!req.session.user) {
+    const guest = {
+      id: uuid.v4(),
+      name: 'Guest'
+    };
+    req.session.user = guest;
+    return res.send(req.session.user);
   }
-  next({ status: 401 });
+
+  // on refresh if its still the guest user keep the session
+  if(req.session.user.name === 'Guest') {
+    return res.send(req.session.user);
+  }
+
+  // if actually logged in persist user session
+  User.findByPk(req.session.user.id)
+    .then(user => res.send(user))
+    .catch(next);
 });
 
 router.delete('/api/logout', (req, res, next) => {
@@ -96,6 +111,7 @@ router.get('/api/orders', (req, res, next) => {
 });
 
 router.post('/api/orders', (req, res, next) => {
+  console.log('req: ', req.body);
   Order.create(req.body)
     .then(order => res.status(201).send(order))
     .catch(next);

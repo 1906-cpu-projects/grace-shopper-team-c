@@ -13,6 +13,12 @@ import {
   createOrder,
   updateOrder,
   deleteOrder,
+  /*
+  to probably add on the back end for guest cart
+  getGuestCart,
+  addGuestItem,
+  deleteGuestItem,
+  */
   getCart,
   addCartItem,
   deleteCartItem
@@ -97,7 +103,7 @@ const getOrdersThunk = () => {
 const createOrderThunk = order => {
   return async dispatch => {
     const response = (await axios.post('/api/orders', order)).data;
-    console.log(order);
+    console.log('create order: ', order);
     dispatch(createOrder(response));
   };
 };

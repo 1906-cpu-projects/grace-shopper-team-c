@@ -34,18 +34,20 @@ class _App extends Component {
   render() {
     //console.log('auth: ', this.props.auth);
     return (
-      <HashRouter>
-        <Route component={Nav} />
-        <Route path='/' component={Home} exact />
-        <Route path='/users' component={Users} />
-        <Route path='/signup' component={SignUp} />
-        <Route path='/profile' component={UserProfile} />
-        <Route path='/settings/profile' component={UpdateUserForm} exact />
-        <Route path='/settings/deactivate' component={DeleteUser} exact />
-        <Route path='/orders/:id' component={Order} />
-        <Route path='/products' component={Products} />
-        <Route path='/cart' component={Cart} />
-      </HashRouter>
+      <div>
+        <HashRouter>
+          <Route component={Nav} />
+          <Route path='/' component={Home} exact />
+          <Route path='/users' component={Users} />
+          <Route path='/signup' component={SignUp} />
+          <Route path='/profile' component={UserProfile} />
+          <Route path='/settings/profile' component={UpdateUserForm} exact />
+          <Route path='/settings/deactivate' component={DeleteUser} exact />
+          <Route path='/orders/:id' component={Order} />
+          <Route path='/products' component={Products} />
+          <Route path='/cart' component={Cart} />
+        </HashRouter>
+      </div>
     );
   }
 }

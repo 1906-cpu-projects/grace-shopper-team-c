@@ -48,22 +48,24 @@ class _Products extends Component {
     //console.log('auth:', this.props.auth);
     //console.log('order: ', this.props.orders);
     //console.log('cart: ', this.props.guestCart);
+    const productList = this.props.products.map(product => {
+      return(
+      <div className='card' key={product.id}>
+        <div className='card-image'>
+          <img src={product.imageURL}/>
+          <a className="btn-floating halfway-fab waves-effect waves-light red" onClick={e => this.create(e, product)}><i className="material-icons">add</i></a>
+        </div>
+        <div className='card-content'>
+        <span className='card-title'>{product.name}</span>
+          <p><b>Price: $ {product.price}</b></p>
+        </div>
+      </div>
+      )
+    })
     return (
-      <div>
-        <div className='ordering'>
-          {this.props.products.map(product => (
-            <div key={product.id} className='border'>
-              {product.name}
-              <img src={product.imageURL}
-              style={{width: '100%', height: 200 }}
-              />
-              <br />${product.price}
-              <br />
-              <button onClick={e => this.create(e, product)}>
-                Add to Cart
-              </button>
-            </div>
-          ))}
+      <div className='container'>
+        <div className='box'>
+          {productList}
         </div>
       </div>
     );

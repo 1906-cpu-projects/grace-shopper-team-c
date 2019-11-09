@@ -7,8 +7,13 @@ class _UserProfile extends Component {
   render(){
     const { auth, logout, users, products } = this.props;
 
+     //loading
+     if(!auth.id || users.length === 0 || products.length === 0){
+      return <h1>loading...</h1>
+    }
+
     //if guest tries to access /profile, link to home page
-    if(!auth.id){
+    if(auth.name === 'Guest'){
       return (
         <div>
           <h3>Hello guest,</h3>
@@ -17,14 +22,9 @@ class _UserProfile extends Component {
       );
     }
 
-    //loading
-    if(users.length === 0 || products.length === 0){
-      return <h1>loading...</h1>
-    }
-
     //find current user
     const user = users.find( user => user.id === auth.id);
-    console.log('user in UserProfile', user);
+
     return (
       <div className='userProfileContainer'>
         <h1>Account Information</h1>

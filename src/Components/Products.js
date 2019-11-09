@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addCartItemThunk, createOrderThunk } from '../redux/store';
+import { addCartItemThunk, createOrderThunk, addGuestItem } from '../redux/store';
 
 class _Products extends Component {
   create(e, product) {
-    const { auth, cart, orders, createOrder, addToCart } = this.props;
+    const { auth, cart, orders, createOrder, addToCart, addGuestItem } = this.props;
     e.preventDefault();
 
     //console.log(this.props.cart, this.props.orders);
 
     // Gets cart for specific user
-    if (auth.id) {
+    if (auth.name !== 'Guest') {
       //check if user has any orders
       const checkOrder = orders.filter(
         order => order.userId === auth.id
@@ -40,13 +40,14 @@ class _Products extends Component {
           )[0].id
         });
       }
+    } else {
+      addGuestItem(product);
     }
-
   }
   render() {
     //console.log('auth:', this.props.auth);
     //console.log('order: ', this.props.orders);
-    //console.log('cart: ', this.props.cart);
+    //console.log('cart: ', this.props.guestCart);
     return (
       <div>
         <div className='ordering'>
@@ -69,18 +70,20 @@ class _Products extends Component {
   }
 }
 const Products = connect(
-  ({ products, auth, cart, orders }) => {
+  ({ products, auth, cart, orders, guestCart }) => {
     return {
       products,
       auth,
       cart,
-      orders
+      orders,
+      guestCart
     };
   },
   dispatch => {
     return {
       addToCart: item => dispatch(addCartItemThunk(item)),
-      createOrder: order => dispatch(createOrderThunk(order))
+      createOrder: order => dispatch(createOrderThunk(order)),
+      addGuestItem: item => dispatch(addGuestItem(item))
     };
   }
 )(_Products);

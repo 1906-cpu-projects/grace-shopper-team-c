@@ -7,6 +7,9 @@ import {
   GET_CART,
   ADD_CART,
   DELETE_CART_ITEM,
+  GET_GUEST_CART,
+  ADD_GUEST_ITEM,
+  DEL_GUEST_ITEM,
   CREATE_USERS,
   UPDATE_USER,
   DELETE_USER,
@@ -49,6 +52,19 @@ const productReducer = (state = [], action) => {
   return state;
 };
 
+const guestCartReducer = (state = [], action) => {
+  switch(action.type) {
+    case GET_GUEST_CART:
+      return action.items;
+    case ADD_GUEST_ITEM:
+      return [...state, action.item];
+    case DEL_GUEST_ITEM:
+      return state.filter(item => item.id !== action.item.id);
+    default:
+      return state;
+  }
+};
+
 const cartReducer = (state = [], action) => {
   switch (action.type) {
     case GET_CART:
@@ -83,6 +99,7 @@ const reducer = combineReducers({
   users: userReducer,
   products: productReducer,
   cart: cartReducer,
+  guestCart: guestCartReducer,
   auth: authenticateReducer,
   orders: orderReducer
 });

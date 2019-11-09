@@ -20,12 +20,11 @@ import Order from './Components/Order';
 import Products from './Components/Products';
 import Home from './Components/Home';
 import Cart from './Components/Cart';
-import { attemptSession, guestLogin } from './redux/store';
+import { attemptSession } from './redux/store';
 
 class _App extends Component {
   componentDidMount() {
-    const { attemptSession, getUsers, getProducts, getCart, getOrders, guestLogin } = this.props;
-    //guestLogin();
+    const { attemptSession, getUsers, getProducts, getCart, getOrders } = this.props;;
     attemptSession().catch(() => { throw new Error('not logged in') });
     getUsers();
     getProducts();
@@ -33,7 +32,7 @@ class _App extends Component {
     getOrders();
   }
   render() {
-    console.log(this.props.auth);
+    console.log('auth: ', this.props.auth);
     return (
       <HashRouter>
         <Route component={Nav} />
@@ -62,8 +61,7 @@ const App = connect(
       getProducts: () => dispatch(getProductsThunk()),
       attemptSession: () => dispatch(attemptSession()),
       getCart: () => dispatch(getCartThunk()),
-      getOrders: () => dispatch(getOrdersThunk()),
-      guestLogin: () => dispatch(guestLogin())
+      getOrders: () => dispatch(getOrdersThunk())
     };
   }
 )(_App);

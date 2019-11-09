@@ -16,7 +16,7 @@ import {
   getCartThunk,
   deleteCartItemThunk
 } from './thunk.js';
-import { getCart, addCartItem, deleteCartItem } from './action.js';
+import { getCart, addCartItem, deleteCartItem, getGuestCart, addGuestItem, deleteGuestItem } from './action.js';
 import { reducer/*, composeEnhancers*/ } from './reducer.js';
 
 const store = createStore(
@@ -32,6 +32,9 @@ export {
   getCart,
   addCartItem,
   deleteCartItem,
+  getGuestCart,
+  addGuestItem,
+  deleteGuestItem,
   createUserThunk,
   attemptLogin,
   attemptSession,

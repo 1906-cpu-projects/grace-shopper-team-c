@@ -13,6 +13,12 @@ import {
   createOrder,
   updateOrder,
   deleteOrder,
+  /*
+  to probably add on the back end for guest cart
+  getGuestCart,
+  addGuestItem,
+  deleteGuestItem,
+  */
   getCart,
   addCartItem,
   deleteCartItem

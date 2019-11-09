@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { User, Product, Order, LineItem } = require('./db');
+const uuid = require('uuid');
 
 router.use(express.json());
 
@@ -79,9 +80,8 @@ router.get('/api/session', (req, res, next) => {
   // if no user logged in, create a guest session
   if(!req.session.user) {
     const guest = {
-      id: Math.random(),
-      name: 'Guest',
-      cart: []
+      id: uuid.v4(),
+      name: 'Guest'
     };
     req.session.user = guest;
     return res.send(req.session.user);
@@ -111,6 +111,7 @@ router.get('/api/orders', (req, res, next) => {
 });
 
 router.post('/api/orders', (req, res, next) => {
+  console.log('req: ', req.body);
   Order.create(req.body)
     .then(order => res.status(201).send(order))
     .catch(next);

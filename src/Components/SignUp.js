@@ -30,7 +30,7 @@ class _SignUp extends Component{
   render(){
     const { auth } = this.props;
     //if logged in user attemps to access /signup, redirect to /profile
-    if(auth.id){
+    if(auth.name !== 'Guest'){
       return (<Redirect to='/profile' />)
     }
 

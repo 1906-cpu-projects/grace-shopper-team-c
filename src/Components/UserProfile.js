@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link , Redirect } from 'react-router-dom';
 import { attemptLogout } from '../redux/store';
 
 class _UserProfile extends Component {
@@ -12,14 +12,9 @@ class _UserProfile extends Component {
       return <h1>loading...</h1>
     }
 
-    //if guest tries to access /profile, link to home page
+    //if guest tries to access /profile, redirect to Sign Up
     if(auth.name === 'Guest'){
-      return (
-        <div>
-          <h3>Hello guest,</h3>
-          <Link to='/'>Return Home</Link>
-        </div>
-      );
+      return <Redirect to='/signup' />
     }
 
     //find current user

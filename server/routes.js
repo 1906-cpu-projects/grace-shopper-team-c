@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { User, Product, Order, LineItem } = require('./db');
 const uuid = require('uuid');
-
+const hash = require('./utils/hash');
 
 router.use(express.json());
 
@@ -31,7 +31,7 @@ router.post('/api/users', (req, res, next) => {
   User.create({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password
+    password: hash(req.body.password, process.env.SALT)
   })
     .then(user => res.send(user))
     .catch(next);
@@ -64,7 +64,7 @@ router.post('/api/login', (req, res, next) => {
   User.findOne({
     where: {
       email: req.body.email,
-      password:req.body.password
+      password: hash(req.body.password, process.env.SALT)
     }
   })
     .then(user => {

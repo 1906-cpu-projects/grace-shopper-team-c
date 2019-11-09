@@ -61,4 +61,4 @@ typings/
 .next
 
 dist
-server/utils/hash.js
+

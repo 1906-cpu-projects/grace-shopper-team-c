@@ -45,6 +45,20 @@ class _Products extends Component {
     }
   }
   render() {
+    const  compare = (a, b)=>{
+      const nameA = a.name.toUpperCase();
+      const nameB = b.name.toUpperCase();
+
+      let comparison = 0;
+      if (nameA  > nameB) {
+        comparison = 1;
+      } else if (nameA < nameB) {
+        comparison = -1;
+      }
+      return comparison;
+    }
+
+    this.props.products.sort(compare);
     //console.log('auth:', this.props.auth);
     //console.log('order: ', this.props.orders);
     //console.log('cart: ', this.props.guestCart);

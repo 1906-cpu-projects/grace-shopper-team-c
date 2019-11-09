@@ -1,6 +1,5 @@
 const app = require('supertest')(require('./server/index'));
-const db = require('./db');
-const {User, Product} = db.models;
+const db = require('./scripts/seed');
 const { expect } = require('chai');
 
 // describe('Testing', ()=> {
@@ -15,10 +14,9 @@ describe('Grace Shopper tests', ()=>{
   let seed;
   beforeEach(async ()=> seed = await db.syncAndSeed());
   describe('Data Layer', ()=> {
-    it('There is 7 products', ()=> {
+    it('These are the products', ()=> {
       expect(seed.products.hammer.name).to.equal('Hammers');
       expect(seed.products.nails.name).to.equal('Nails');
-      expect(seed.products.paint.name).to.equal('Paint');
       expect(seed.products.chairSet.name).to.equal('Chair Set');
       expect(seed.products.shovel.name).to.equal('Shovel');
       expect(seed.products.lawnMower.name).to.equal('Lawn Mower');
@@ -30,9 +28,43 @@ describe('Grace Shopper tests', ()=>{
       expect(seed.users.anna.name).to.equal('Anna Lane');
       expect(seed.users.may.name).to.equal('May Taylor');
       expect(seed.users.james.name).to.equal('James Romero');
+    });
+    it('There are 3 Orders that are completed', ()=>{
+      expect(seed.orders.order1.complete).to.equal(true);
+      expect(seed.orders.order2.complete).to.equal(true);
+      expect(seed.orders.order3.complete).to.equal(true);
+    });
+    it('Our current quantity for the items in our orders are thus', ()=>{
+      expect(seed.lineItems.item1.quantity).to.equal(6);
+      expect(seed.lineItems.item2.quantity).to.equal(6);
+      expect(seed.lineItems.item3.quantity).to.equal(16);
+      expect(seed.lineItems.item4.quantity).to.equal(3);
+    })
+    it('An order belongs to a user', ()=>{
+      expect(seed.orders.order1.userId).to.equal(seed.users.anna.id);
+      expect(seed.orders.order2.userId).to.equal(seed.users.may.id);
+      expect(seed.orders.order3.userId).to.equal(seed.users.john.id);
+    });
+    it('A LineItem belongs to an order', ()=>{
+      expect(seed.lineItems.item1.orderId).to.equal(seed.users.order1.id);
+      expect(seed.lineItems.item2.orderId).to.equal(seed.users.order2.id);
+      expect(seed.lineItems.item3.orderId).to.equal(seed.users.order2.id);
+      expect(seed.lineItems.item4.orderId).to.equal(seed.users.order3.id);
+    });
+  });
+  describe('User validation', ()=>{
+    it('name is required', ()=>{
+      return User.create({})
+        .then(()=> {throw 'ERROR!!!'})
+        .catch(ex => expect(ex.errors[0].path.to.equal('name')))
+    });
+    it('name can not be an empty string', ()=>{
+      return User.create({name: ''})
+        .then(()=> {throw 'ERROR!!!'})
+        .catch(ex => expect(ex.errors[0].path.to.equal('name')))
     })
   })
-})
+});
 
 describe('Authentication', ()=> {
   let seed;

@@ -271,7 +271,7 @@ const syncAndSeed = async () => {
     }
   ];
 
-  const [ hammer, nails, wrench, paintBlack, paintWhite, paintRed, paintOrange, paintYellow, paintGreen, paintBlue, paintPurple, chairSet, shovel, rake, broom, smartLock, deadbolt, doorKnob, hinge, drill, circularSaw, reciprocatingSaw, tableSaw, toolSet, sockets, workbenchSmall, workbenchMedium, workbenchLarge, sawBlades, batteries, air, lawnMower, ] = await mapAndSave(Product, products);
+  const [ hammer, nails, wrench, paintBlack, paintWhite, paintRed, paintOrange, paintYellow, paintGreen, paintBlue, paintPurple, chairSet, shovel, rake, broom, smartLock, deadbolt, doorKnob, hinge, drill, circularSaw, reciprocatingSaw, tableSaw, toolSet, sockets, workbenchSmall, workbenchMedium, workbenchLarge, sawBlades, batteries, air, lawnMower ] = await mapAndSave(Product, products);
 
   const orders = [
     {
@@ -314,6 +314,62 @@ const syncAndSeed = async () => {
   ];
 
   const [item1, item2, item3, item4] = await mapAndSave(LineItem, lineItems);
+
+  //TESTING
+  return {
+    users: {
+      billy,
+      john,
+      anna,
+      may,
+      james
+    },
+    products: {
+      hammer,
+      nails,
+      wrench,
+      paintBlack,
+      paintWhite,
+      paintRed,
+      paintOrange,
+      paintYellow,
+      paintGreen,
+      paintBlue,
+      paintPurple,
+      chairSet,
+      shovel,
+      rake,
+      broom,
+      smartLock,
+      deadbolt,
+      doorKnob,
+      hinge,
+      drill,
+      circularSaw,
+      reciprocatingSaw,
+      tableSaw,
+      toolSet,
+      sockets,
+      workbenchSmall,
+      workbenchMedium,
+      workbenchLarge,
+      sawBlades,
+      batteries,
+      air,
+      lawnMower
+    },
+    order: {
+      order1,
+      order2,
+      order3
+    },
+    lineItems: {
+      item1,
+      item2,
+      item3,
+      item4
+    }
+  }
 }
 
 

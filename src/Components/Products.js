@@ -16,14 +16,14 @@ class _Products extends Component {
       const checkOrder = orders.filter(
         order => order.userId === auth.id
       );
-      console.log('checkOrder: ', checkOrder);
+      //console.log('checkOrder: ', checkOrder);
       // if no orders create an order
       if (!checkOrder.length) {
         createOrder({ userId: auth.id });
         const order = orders.filter(
           order => order.userId === auth.id
         );
-        console.log('order', order);
+        //console.log('order', order);
 
         // if there is an order add to it
         if (order.length) {

@@ -111,7 +111,6 @@ router.get('/api/orders', (req, res, next) => {
 });
 
 router.post('/api/orders', (req, res, next) => {
-  console.log('req: ', req.body);
   Order.create(req.body)
     .then(order => res.status(201).send(order))
     .catch(next);

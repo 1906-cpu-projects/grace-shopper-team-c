@@ -32,7 +32,7 @@ class _App extends Component {
     getOrders();
   }
   render() {
-    console.log('auth: ', this.props.auth);
+    //console.log('auth: ', this.props.auth);
     return (
       <HashRouter>
         <Route component={Nav} />

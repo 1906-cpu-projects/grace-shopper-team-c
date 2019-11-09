@@ -103,7 +103,7 @@ const getOrdersThunk = () => {
 const createOrderThunk = order => {
   return async dispatch => {
     const response = (await axios.post('/api/orders', order)).data;
-    console.log('create order: ', order);
+    //console.log('create order: ', order);
     dispatch(createOrder(response));
   };
 };
@@ -133,7 +133,7 @@ const getCartThunk = () => {
 const addCartItemThunk = item => {
   return async dispatch => {
     const response = (await axios.post('/api/lineItems', item)).data;
-    console.log('item', item);
+    //console.log('item', item);
     dispatch(addCartItem(response));
   };
 };

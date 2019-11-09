@@ -12,7 +12,7 @@ const _Nav = ({ users, products, cart, guestCart, auth, orders }) => {
       <NavLink to='/users'>Users ({users.length})</NavLink>
       <NavLink to='/products'>Products ({products.length})</NavLink>
       <NavLink to='/cart'>Cart ({auth.name !== 'Guest' ? userCart.length : guestCart.length})</NavLink>
-      {!auth.id ? (
+      {auth.name === 'Guest' || !auth.id ? (
         <NavLink to='/signup'>Sign Up</NavLink>
       ) : (
         <NavLink to='/profile'>Profile</NavLink>

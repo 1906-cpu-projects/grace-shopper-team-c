@@ -1,30 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link , Redirect } from 'react-router-dom';
 import { attemptLogout } from '../redux/store';
 
 class _UserProfile extends Component {
   render(){
     const { auth, logout, users, products } = this.props;
 
-    //if guest tries to access /profile, link to home page
-    if(!auth.id){
-      return (
-        <div>
-          <h3>Hello guest,</h3>
-          <Link to='/'>Return Home</Link>
-        </div>
-      );
+     //loading
+     if(!auth.id || users.length === 0 || products.length === 0){
+      return <h1>loading...</h1>
     }
 
-    //loading
-    if(users.length === 0 || products.length === 0){
-      return <h1>loading...</h1>
+    //if guest tries to access /profile, redirect to Sign Up
+    if(auth.name === 'Guest'){
+      return <Redirect to='/signup' />
     }
 
     //find current user
     const user = users.find( user => user.id === auth.id);
-    console.log('user in UserProfile', user);
+
     return (
       <div className='userProfileContainer'>
         <h1>Account Information</h1>

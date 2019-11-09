@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { User, Product, Order, LineItem } = require('./db');
 const uuid = require('uuid');
+const hash = require('./utils/hash');
 
 router.use(express.json());
 
@@ -16,7 +17,7 @@ router.get('/api/users', (req, res, next) => {
   User.findAll({
     include: [{ model: Order, include: [LineItem] }]
   })
-    .then(user => res.send(user))
+    .then(users => res.send(users))
     .catch(next);
 });
 router.get('/api/products', (req, res, next) => {
@@ -30,7 +31,7 @@ router.post('/api/users', (req, res, next) => {
   User.create({
     name: req.body.name,
     email: req.body.email,
-    password: req.body.password
+    password: hash(req.body.password, process.env.SALT)
   })
     .then(user => res.send(user))
     .catch(next);
@@ -63,7 +64,7 @@ router.post('/api/login', (req, res, next) => {
   User.findOne({
     where: {
       email: req.body.email,
-      password: req.body.password
+      password: hash(req.body.password, process.env.SALT)
     }
   })
     .then(user => {
@@ -111,7 +112,6 @@ router.get('/api/orders', (req, res, next) => {
 });
 
 router.post('/api/orders', (req, res, next) => {
-  console.log('req: ', req.body);
   Order.create(req.body)
     .then(order => res.status(201).send(order))
     .catch(next);

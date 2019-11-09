@@ -10,7 +10,6 @@ class _UpdateUserForm extends Component {
     this.state = {
       name: props.auth.name,
       email: props.auth.email,
-      password: props.auth.password, //need to change once hashing is done
       error: ''
     }
     this.handleChange = this.handleChange.bind(this);
@@ -60,12 +59,8 @@ class _UpdateUserForm extends Component {
             Email: <input type='email' name='email' value={ email } onChange={ handleChange }></input>
           </div>
           <br/>
-          <div>
-            New Password: <input type='password' name='password' placeholder='change password' onChange={ handleChange }></input>
-          </div>
-          <br/>
           { !!error && <div className='error'>{ error }</div> }
-          <button disabled={!this.state.name || !this.state.email || !this.state.password } onClick={ update }>Update</button>
+          <button disabled={!this.state.name || !this.state.email } onClick={ update }>Update</button>
         </form>
       </div>
     );

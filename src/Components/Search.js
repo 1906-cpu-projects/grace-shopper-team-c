@@ -32,11 +32,15 @@ class _Search extends React.Component {
             <Products />
           ) : (
             searchProducts.map(product => (
-              <div key={product.id} className='border'>
-                {product.name}
-                <br />${product.price}
-                <br />
-                <button>Add to Cart</button>
+              <div className='card' key={product.id}>
+                <div className='card-image'>
+                  <img src={product.imageURL}/>
+                  <a className="btn-floating halfway-fab waves-effect waves-light red" onClick={e => this.create(e, product)}><i className="material-icons">add</i></a>
+                </div>
+                <div className='card-content'>
+                <span className='card-title'>{product.name}</span>
+                  <p><b>Price: $ {product.price}</b></p>
+                </div>
               </div>
             ))
           )}

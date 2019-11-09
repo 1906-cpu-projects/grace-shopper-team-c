@@ -1,5 +1,4 @@
 const { db, User, Product, Order, LineItem } = require('../server/db');
-const hash = require('../server/utils/hash');
 
 const mapAndSave = async(model, items) => Promise.all(await items.map(item => model.create(item)));
 
@@ -11,27 +10,27 @@ const syncAndSeed = async () => {
     {
       name: 'Billy Hill',
       email: 'bHill@gmail.com',
-      password: hash('12345', process.env.SALT)
+      password: '12345'
     },
     {
       name: 'John Ford',
       email: 'jFord@gmail.com',
-      password: hash('12345', process.env.SALT)
+      password: '12345'
     },
     {
       name: 'Anna Lane',
       email: 'aLane@gmail.com',
-      password: hash('12345', process.env.SALT)
+      password: '12345'
     },
     {
       name: 'May Taylor',
       email: 'mTaylor@gmail.com',
-      password: hash('12345', process.env.SALT)
+      password: '12345'
     },
     {
       name: 'James Romero',
       email: 'jRomero@gmail.com',
-      password: hash('12345', process.env.SALT)
+      password: '12345'
     }
   ];
 

@@ -32,7 +32,7 @@ class _LoginForm extends Component {
     const { onChange, login } = this;
 
     return (
-      <div>
+      <div className='container'>
         <h3>Login</h3>
         <form onSubmit={ login }>
           {

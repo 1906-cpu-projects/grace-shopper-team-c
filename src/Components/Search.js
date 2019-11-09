@@ -19,7 +19,7 @@ class _Search extends React.Component {
   render() {
     const { searchProducts, input } = this.state;
     return (
-      <div>
+      <div className='container'>
         <input
           type='text'
           className='search'

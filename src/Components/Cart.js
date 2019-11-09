@@ -34,25 +34,53 @@ class _Cart extends Component {
       );
     }
     return (
-      <div>
-        <h2>Your Cart</h2>
-        <ul>
-          {
-            auth.name !== 'Guest' ?
-            ownCart.map(item => (
-              <li key={item.id}>
-                {item.product.name} ${item.product.price}
-                <button onClick={() => destroy(item)}>Remove Item</button>
+      <div className='container'>
+        <div className='cart'>
+          <h2>Your Cart</h2>
+          <ul className='collection'>
+            {
+              auth.name !== 'Guest' ?
+              ownCart.map(item => (
+              <li className ='collection-item avatar' key={item.id}>
+                <div className='item-img'>
+                  <img src={item.product.imageURL}/>
+                </div>
+                <div className='item-desc'>
+                  <span className="title">{item.product.name}</span>
+                  <p><b>Price: {item.product.price}$</b></p>
+                  <p>
+                      <b>Quantity:</b>
+                  </p>
+                </div>
+                  <div className='add-remove'>
+                  <i className="material-icons">arrow_drop_up</i>
+                  <i className="material-icons">arrow_drop_down</i>
+                  </div>
+                <button className='waves-effect waves-light btn orange darken-3 remove'onClick={() => deleteGuestItem(item)}>Remove Item</button>
               </li>
-            )) : userCart.map(item =>
-                <li key={item.id}>
-                  { item.name } ${item.price}
-                  <button onClick={() => deleteGuestItem(item)}>Remove Item</button>
-                </li>)
+            )) : userCart.map(item => (
+              <li className ='collection-item avatar' key={item.id}>
+                <div className='item-img'>
+                  <img src={item.imageURL}/>
+                </div>
+                <div className='item-desc'>
+                  <span className="title">{item.name}</span>
+                  <p><b>Price: {item.price}$</b></p>
+                  <p>
+                      <b>Quantity:</b>
+                  </p>
+                </div>
+                  <div className='add-remove'>
+                  <i className="material-icons">arrow_drop_up</i>
+                  <i className="material-icons">arrow_drop_down</i>
+                  </div>
+                <button className='waves-effect waves-light btn orange darken-3 remove'onClick={() => destroy(item)}>Remove Item</button>
+              </li>))
           }
-        </ul>
-        <h3>Subtotal ${cartTotal}</h3>
-        <button>Submit Order</button>
+          </ul>
+          <h3>Subtotal ${cartTotal}</h3>
+          <button>Submit Order</button>
+        </div>
       </div>
     );
   }

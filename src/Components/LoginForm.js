@@ -34,7 +34,7 @@ class _LoginForm extends Component {
     return (
       <div className='container'>
         <h3>Login</h3>
-        <form onSubmit={ login }>
+        <form className='card-panel' onSubmit={ login }>
           {
             !!error && <div className='error' >{error}</div>
           }
@@ -45,7 +45,7 @@ class _LoginForm extends Component {
           <input placeholder='password' value={ password } type='password' name='password' onChange={ onChange } />
           </div>
           <div>
-            <button>Login</button>
+            <button className='waves-effect waves-light btn-small'>Login</button>
           </div>
         </form>
       </div>

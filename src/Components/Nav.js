@@ -7,17 +7,17 @@ const _Nav = ({ users, products, cart, guestCart, auth, orders }) => {
   const userCart =
     order.length !== 0 ? cart.filter(item => item.orderId === order[0].id) : [];
   return (
-    <nav className='nav-wrapper'>
-      <div className='container'>
-        <NavLink to='/' className='brand-logo'>Home</NavLink>
-        <ul className='right'>
-          <li><NavLink to='/users'>Users ({users.length})</NavLink></li>
-          <li><NavLink to='/products'>Products ({products.length})</NavLink></li>
-          <NavLink to='/cart'><i className="medium material-icons">add_shopping_cart</i>Cart ({auth.name !== 'Guest' ? userCart.length : guestCart.length})</NavLink>
+    <nav>
+      <div className='nav-wrapper'>
+        <NavLink to='/' className='brand-logo'><i className="material-icons left">build</i>Grace Shopper</NavLink>
+        <ul id='nav-mobile' className='right hide-on-med-and-down'>
+          <li><NavLink to='/users'><i className="material-icons left">person_outline</i>Users <span className='new badge blue'>{users.length}</span></NavLink></li>
+          <li><NavLink to='/products'>Products <span className='new badge blue'>{products.length}</span></NavLink></li>
+          <li><NavLink to='/cart'><i className="medium material-icons right">add_shopping_cart</i>Cart ({auth.name !== 'Guest' ? userCart.length : guestCart.length})</NavLink></li>
       {auth.name === 'Guest' || !auth.id ? (
-        <NavLink to='/signup'>Sign Up</NavLink>
+        <li><NavLink to='/signup'>Sign Up</NavLink></li>
       ) : (
-        <NavLink to='/profile'>Profile</NavLink>
+        <li><NavLink to='/profile'>Profile</NavLink></li>
       )}
         </ul>
       </div>

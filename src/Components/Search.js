@@ -19,7 +19,7 @@ class _Search extends React.Component {
   render() {
     const { searchProducts, input } = this.state;
     return (
-      <div className='container'>
+      <div>
         <input
           type='text'
           className='search'
@@ -27,7 +27,7 @@ class _Search extends React.Component {
           onKeyUp={e => this.startSearch(e)}
           placeholder='Search products'
         />
-        <div className='ordering'>
+        <div className='container'>
           {searchProducts.length === 0 && !input ? (
             <Products />
           ) : (

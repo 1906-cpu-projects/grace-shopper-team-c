@@ -35,10 +35,10 @@ class _SignUp extends Component{
     }
 
     return (
-      <div>
+      <div className='container'>
         <br></br>
         <div>Already have an account? <span><Link to='/'>log in</Link></span></div>
-        <form onSubmit={ev => ev.preventDefault()} className='userForm' >
+        <form onSubmit={ev => ev.preventDefault()} className='card-panel' >
         <div><h1>Create an Account</h1></div>
           <div>User Name: <input value={this.state.name} placeholder='enter name here' onChange={ev => this.setState({name: ev.target.value})} /></div>
           <br/>
@@ -46,7 +46,7 @@ class _SignUp extends Component{
           <br/>
           <div>Password: <input type='password' value={this.state.password} placeholder='enter email here' onChange={ev => this.setState({password: ev.target.value})} /></div>
           <br/>
-          <Link to='/' ><button disabled={!this.state.name || !this.state.email || !this.state.password } onClick={this.create} >Sign Up</button></Link>
+          <Link to='/' ><button disabled={!this.state.name || !this.state.email || !this.state.password } onClick={this.create} className='waves-effect waves-light btn-small'>Sign Up</button></Link>
         </form>
       </div>
     )

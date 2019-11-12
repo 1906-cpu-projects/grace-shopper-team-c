@@ -14,7 +14,7 @@ const _Home = ({ auth }) => {
         (
           <div>
             <LoginForm />
-            <div>Don't have an account? <Link to='/signup'>Sign up</Link></div>
+            <div className='container'>Don't have an account? <Link to='/signup'>Sign up</Link></div>
           </div>
         )
         : <Login />

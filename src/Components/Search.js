@@ -1,13 +1,13 @@
-import React from "react";
-import Products from "./Products";
-import { connect } from "react-redux";
+import React from 'react';
+import Products from './Products';
+import { connect } from 'react-redux';
 
 class _Search extends React.Component {
   constructor() {
     super();
     this.state = {
       searchProducts: [],
-      input: ""
+      input: ''
     };
   }
   startSearch(e) {
@@ -21,21 +21,26 @@ class _Search extends React.Component {
     return (
       <div>
         <input
-          type="text"
-          className="search"
-          name="input"
+          type='text'
+          className='search'
+          name='input'
           onKeyUp={e => this.startSearch(e)}
+          placeholder='Search products'
         />
-        <div className="ordering">
+        <div className='container'>
           {searchProducts.length === 0 && !input ? (
             <Products />
           ) : (
             searchProducts.map(product => (
-              <div key={product.id} className="border">
-                {product.name}
-                <br />${product.price}
-                <br />
-                <button>Add to Cart</button>
+              <div className='card' key={product.id}>
+                <div className='card-image'>
+                  <img src={product.imageURL}/>
+                  <a className="btn-floating halfway-fab waves-effect waves-light red" onClick={e => this.create(e, product)}><i className="material-icons">add</i></a>
+                </div>
+                <div className='card-content'>
+                <span className='card-title'>{product.name}</span>
+                  <p><b>Price: $ {product.price}</b></p>
+                </div>
               </div>
             ))
           )}

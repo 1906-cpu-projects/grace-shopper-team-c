@@ -1,50 +1,17 @@
 <html>
   <head>
-    <script src="/dist/main.js" defer></script>
-    <style>
-      nav {
-        display: flex;
-        justify-content: space-around;
-        background-color: tomato;
-        padding: 1.5rem;
-      }
-
-      input,
-      button {
-        height: 2rem;
-        font-size: 1rem;
-      }
-      .ordering {
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: space-around;
-        text-align: center;
-        padding: 1rem;
-        margin: 1rem;
-      }
-      .border {
-        border: solid 1px black;
-        padding: 0.5rem;
-        margin: 0.5rem;
-        width: calc(100% / 4);
-      }
-      .search {
-        width: 100%;
-      }
-      .userForm {
-        height: 50%;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        align-items: center;
-        justify-content: center;
-      }
-
-    </style>
+    <link rel='stylesheet' href='./public/styles.css'>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="public/css/materialize.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  </head>
+    <script src='./dist/main.js' defer></script>
   </head>
   <body>
     <div id="root"></div>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
   </body>
 </html>

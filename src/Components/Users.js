@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 class _Users extends Component{
   render(){
-    console.log(this.props.users)
+
     return (
       <div>
         <div>
@@ -15,7 +15,7 @@ class _Users extends Component{
             }
           </ul>
         </div>
-        <Link to='/user' ><button>Sign up</button></Link>
+        <Link to='/signup' ><button>Sign up</button></Link>
       </div>
     )
   }

@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { attemptLogout } from './store';
+import { attemptLogout } from '../redux/store';
 
 const _Login = ({ auth, attemptLogout }) =>
   <div>
-    Welcome { auth.name }
+    <div>
+      Welcome, { auth.name }
+    </div>
     <button onClick={ attemptLogout }>Logout</button>
   </div>
 

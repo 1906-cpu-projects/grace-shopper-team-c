@@ -45,7 +45,7 @@
     "chai": "^4.2.0",
     "cookie-parser": "^1.4.4",
     "mocha": "^6.2.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "nodemon": "^1.19.4",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
